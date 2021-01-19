@@ -1,0 +1,28 @@
+﻿<Properties StartupConfiguration="{BCDC9957-0BEC-4C49-8891-AE9FED4BFBF7}|Default">
+  <MonoDevelop.Ide.ItemProperties.IamService PreferredExecutionTarget="/Applications/Microsoft Edge.app" />
+  <MonoDevelop.Ide.Workbench ActiveDocument="IamService/Startup.cs">
+    <Files>
+      <File FileName="IamService/DataAccess/IamDbContext.cs" Line="12" Column="10" />
+      <File FileName="IamService/Startup.cs" Line="41" Column="67" />
+    </Files>
+    <Pads>
+      <Pad Id="ProjectPad">
+        <State name="__root__">
+          <Node name="UnitTestingPlayground" expanded="True">
+            <Node name="IamService" expanded="True">
+              <Node name="Dependencies" expanded="True" />
+              <Node name="DataAccess" expanded="True" />
+              <Node name="Startup.cs" selected="True" />
+            </Node>
+          </Node>
+        </State>
+      </Pad>
+    </Pads>
+  </MonoDevelop.Ide.Workbench>
+  <MonoDevelop.Ide.DebuggingService.PinnedWatches />
+  <MonoDevelop.Ide.Workspace ActiveConfiguration="Debug" />
+  <MonoDevelop.Ide.DebuggingService.Breakpoints>
+    <BreakpointStore />
+  </MonoDevelop.Ide.DebuggingService.Breakpoints>
+  <MultiItemStartupConfigurations />
+</Properties>
