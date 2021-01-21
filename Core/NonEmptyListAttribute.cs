@@ -6,7 +6,11 @@ namespace Core
 {
     public class NonEmptyListAttribute : ValidationAttribute
     {
-        public string GetErrorMessage() => $"List must not be null and contain at least one value";
+        private readonly Type _t;
+        public NonEmptyListAttribute(Type t)
+        {
+            _t = t;
+        }
         protected override ValidationResult IsValid(object value,
             ValidationContext validationContext)
         {
@@ -14,7 +18,7 @@ namespace Core
             {
                 return new ValidationResult("List must not be null");
             }
-            var list = (IList<object>)value;
+            var list = value as List<_t>
             if (list.Count == 0)
             {
                 return new ValidationResult("List must contain at least one value");
