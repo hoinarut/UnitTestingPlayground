@@ -1,18 +1,37 @@
 ﻿<Properties StartupConfiguration="{BCDC9957-0BEC-4C49-8891-AE9FED4BFBF7}|Default">
   <MonoDevelop.Ide.ItemProperties.IamService PreferredExecutionTarget="/Applications/Microsoft Edge.app" />
-  <MonoDevelop.Ide.Workbench ActiveDocument="IamService/Startup.cs">
+  <MonoDevelop.Ide.Workbench ActiveDocument="Core/NonEmptyListAttribute.cs">
     <Files>
-      <File FileName="IamService/DataAccess/IamDbContext.cs" Line="12" Column="10" />
-      <File FileName="IamService/Startup.cs" Line="41" Column="67" />
+      <File FileName="IamService/DataAccess/IamDbContext.cs" Line="44" Column="56" />
+      <File FileName="IamService/Startup.cs" Line="61" Column="17" />
+      <File FileName="IamService/DataAccess/User.cs" Line="18" Column="67" />
+      <File FileName="IamService/DataAccess/UserRole.cs" Line="8" Column="6" />
+      <File FileName="IamService/BusinessLogic/Services/IAccountService.cs" Line="11" Column="62" />
+      <File FileName="IamService/BusinessLogic/Services/AccountService.cs" Line="53" Column="17" />
+      <File FileName="IamService/Models/UserCreateModel.cs" Line="17" Column="52" />
+      <File FileName="IamService/BusinessLogic/Helpers/PasswordHelper.cs" Line="42" Column="53" />
+      <File FileName="IamService/Controllers/AccountController.cs" Line="34" Column="27" />
+      <File FileName="IamService/appsettings.json" Line="13" Column="16" />
+      <File FileName="Core/RoleBasedPolicyHandler.cs" Line="21" Column="66" />
+      <File FileName="Core/ExceptionMiddleware.cs" Line="54" Column="81" />
+      <File FileName="Core/NonEmptyListAttribute.cs" Line="1" Column="1" />
     </Files>
     <Pads>
       <Pad Id="ProjectPad">
         <State name="__root__">
           <Node name="UnitTestingPlayground" expanded="True">
+            <Node name="Core" expanded="True">
+              <Node name="NonEmptyListAttribute.cs" selected="True" />
+            </Node>
             <Node name="IamService" expanded="True">
-              <Node name="Dependencies" expanded="True" />
+              <Node name="BusinessLogic" expanded="True">
+                <Node name="Helpers" expanded="True" />
+                <Node name="Services" expanded="True" />
+              </Node>
+              <Node name="Controllers" expanded="True" />
               <Node name="DataAccess" expanded="True" />
-              <Node name="Startup.cs" selected="True" />
+              <Node name="Migrations" expanded="True" />
+              <Node name="Models" expanded="True" />
             </Node>
           </Node>
         </State>
@@ -22,7 +41,9 @@
   <MonoDevelop.Ide.DebuggingService.PinnedWatches />
   <MonoDevelop.Ide.Workspace ActiveConfiguration="Debug" />
   <MonoDevelop.Ide.DebuggingService.Breakpoints>
-    <BreakpointStore />
+    <BreakpointStore>
+      <Breakpoint file="/Users/thoinaru/Personal/Arnia/UnitTestingPlayground/Core/RoleBasedPolicyHandler.cs" relfile="Core/RoleBasedPolicyHandler.cs" line="14" column="1" />
+    </BreakpointStore>
   </MonoDevelop.Ide.DebuggingService.Breakpoints>
   <MultiItemStartupConfigurations />
 </Properties>

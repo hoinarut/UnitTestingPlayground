@@ -1,0 +1,9 @@
+/Users/thoinaru/Personal/Arnia/UnitTestingPlayground/Core/bin/Debug/netstandard2.1/Core.deps.json
+/Users/thoinaru/Personal/Arnia/UnitTestingPlayground/Core/bin/Debug/netstandard2.1/Core.dll
+/Users/thoinaru/Personal/Arnia/UnitTestingPlayground/Core/bin/Debug/netstandard2.1/Core.pdb
+/Users/thoinaru/Personal/Arnia/UnitTestingPlayground/Core/obj/Debug/netstandard2.1/Core.csprojAssemblyReference.cache
+/Users/thoinaru/Personal/Arnia/UnitTestingPlayground/Core/obj/Debug/netstandard2.1/Core.AssemblyInfoInputs.cache
+/Users/thoinaru/Personal/Arnia/UnitTestingPlayground/Core/obj/Debug/netstandard2.1/Core.AssemblyInfo.cs
+/Users/thoinaru/Personal/Arnia/UnitTestingPlayground/Core/obj/Debug/netstandard2.1/Core.csproj.CoreCompileInputs.cache
+/Users/thoinaru/Personal/Arnia/UnitTestingPlayground/Core/obj/Debug/netstandard2.1/Core.dll
+/Users/thoinaru/Personal/Arnia/UnitTestingPlayground/Core/obj/Debug/netstandard2.1/Core.pdb
