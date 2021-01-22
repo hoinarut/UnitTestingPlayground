@@ -25,6 +25,7 @@
     <Folder Include="BusinessLogic\Services\" />
     <Folder Include="Models\" />
     <Folder Include="BusinessLogic\Helpers\" />
+    <Folder Include="DataAccess\DTOs\" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\Core\Core.csproj">

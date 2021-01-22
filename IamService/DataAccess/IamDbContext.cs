@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using IamService.BusinessLogic.Helpers;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
@@ -15,6 +16,8 @@ namespace IamService.DataAccess
         public DbSet<User> Users { get; set; }
         public DbSet<Role> Roles { get; set; }
         public DbSet<UserRole> UserRoles { get; set; }
+        public DbSet<UserProfile> UserProfiles { get; set; }
+        public DbSet<UserActivityLog> UserActivityLogs { get; set; }
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
@@ -30,7 +33,14 @@ namespace IamService.DataAccess
 
             modelBuilder.Entity<User>().ToTable("Users")
                 .HasData(
-                    new User { Id = 1, CreatedOn = DateTime.Now, IsActive = true, Password = pwd, UserName = "hoinarut" }
+                    new User
+                    {
+                        Id = 1,
+                        CreatedOn = DateTime.Now,
+                        IsActive = true,
+                        Password = pwd,
+                        UserName = "hoinarut"
+                    }
                 );
 
             modelBuilder.Entity<UserRole>()
@@ -38,11 +48,27 @@ namespace IamService.DataAccess
                 .HasKey(ur => new { ur.UserId, ur.RoleId });
             modelBuilder.Entity<UserRole>()
                 .HasOne(ur => ur.User)
-                .WithMany(u => u.UserRoles);
+                .WithMany(u => u.Roles);
             modelBuilder.Entity<UserRole>()
+                .HasData(new UserRole
+                {
+                    RoleId = 1,
+                    UserId = 1
+                });
+
+            modelBuilder.Entity<UserProfile>().ToTable("UserProfiles")
                 .HasData(
-                 new UserRole { UserId = 1, RoleId = 1 }
-                );
+                new UserProfile
+                {
+                    Id = 1,
+                    FirstName = "Tudor",
+                    LastName = "Hoinaru",
+                    DateOfBirth = DateTime.Parse("10-04-1985"),
+                    UserId = 1
+                });
+            modelBuilder.Entity<UserActivityLog>().ToTable("UserActivityLogs")
+                .HasOne(ual => ual.User)
+                .WithMany();
         }
     }
 }

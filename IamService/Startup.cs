@@ -69,6 +69,7 @@ namespace IamService
 
             services.AddSingleton<SecurityHelper>();
             services.AddTransient<IAccountService, AccountService>();
+            services.AddTransient<IUserActivityLogService, UserActivityLogService>();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.

@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using Core;
+using IamService.DataAccess.DTOs;
 
 namespace IamService.Models
 {
@@ -16,8 +17,8 @@ namespace IamService.Models
         public string Password { get; set; }
         [Compare(nameof(Password))]
         public string ConfirmPassword { get; set; }
-        [NonEmptyList]
         public List<int> Roles { get; set; }
+        public UserProfileDto Profile { get; set; }
     }
 }
 

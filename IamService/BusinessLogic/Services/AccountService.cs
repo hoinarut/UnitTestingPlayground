@@ -7,6 +7,7 @@ using System.Threading.Tasks;
 using Core.Exceptions;
 using IamService.BusinessLogic.Helpers;
 using IamService.DataAccess;
+using IamService.DataAccess.DTOs;
 using IamService.Models;
 using Microsoft.EntityFrameworkCore;
 
@@ -30,7 +31,7 @@ namespace IamService.BusinessLogic.Services
                 Password = _passwordHelper.HashPassword(model.Password),
                 CreatedOn = DateTime.Now,
                 IsActive = true,
-                UserRoles = model.Roles.Select(r => new UserRole { RoleId = r }).ToList()
+                Roles = model.Roles.Select(r => new UserRole { RoleId = r }).ToList()
             };
 
             _dbContext.Users.Add(userEntity);
@@ -50,20 +51,20 @@ namespace IamService.BusinessLogic.Services
         public async Task<LoginReponse> LoginAsync(LoginModel model)
         {
             var user = await _dbContext.Users
-                .Include(u => u.UserRoles).ThenInclude(ur => ur.Role)
+                .Include(u => u.Roles).ThenInclude(ur => ur.Role)
                 .FirstOrDefaultAsync(u => u.UserName == model.UserName);
             if (user == null || user.Password != _passwordHelper.HashPassword(model.Password))
             {
                 throw new ValidationException("Invalid username or password");
             }
             var token = _passwordHelper.GenerateJwtToken(user);
-            return new LoginReponse { UserName = user.UserName, Token = token };
+            return new LoginReponse { UserName = user.UserName, Token = token, UserId = user.Id };
         }
 
         public async Task<List<Role>> GetRolesAsync()
         {
             return await _dbContext.Roles.ToListAsync();
-        }
+        }        
     }
 }
 

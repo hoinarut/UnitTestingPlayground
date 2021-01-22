@@ -3,14 +3,16 @@ using System;
 using IamService.DataAccess;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 namespace IamService.Migrations
 {
     [DbContext(typeof(IamDbContext))]
-    partial class IamDbContextModelSnapshot : ModelSnapshot
+    [Migration("20210122130213_UserProfile_UserActivityLogs")]
+    partial class UserProfile_UserActivityLogs
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -85,7 +87,7 @@ namespace IamService.Migrations
                         new
                         {
                             Id = 1,
-                            CreatedOn = new DateTime(2021, 1, 22, 15, 37, 16, 813, DateTimeKind.Local).AddTicks(5530),
+                            CreatedOn = new DateTime(2021, 1, 22, 15, 2, 12, 771, DateTimeKind.Local).AddTicks(5590),
                             IsActive = true,
                             Password = "xTGXSotQ+M4NZNXhILQfSQFJ0ozi5S6YfDeqjFd5hvs=",
                             UserName = "hoinarut"
@@ -121,9 +123,6 @@ namespace IamService.Migrations
                         .HasColumnType("INTEGER");
 
                     b.Property<DateTime>("DateOfBirth")
-                        .HasColumnType("TEXT");
-
-                    b.Property<string>("EmailAddress")
                         .HasColumnType("TEXT");
 
                     b.Property<string>("FirstName")

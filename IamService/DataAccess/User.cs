@@ -15,6 +15,7 @@ namespace IamService.DataAccess
         public DateTime CreatedOn { get; set; }
         public bool IsActive { get; set; }
 
-        public virtual ICollection<UserRole> UserRoles { get; set; }
+        public virtual ICollection<UserRole> Roles { get; set; }
+        public virtual UserProfile Profile { get; set; }
     }
 }

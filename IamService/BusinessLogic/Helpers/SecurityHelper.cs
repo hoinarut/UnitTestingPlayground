@@ -37,7 +37,7 @@ namespace IamService.BusinessLogic.Helpers
                 new Claim("Id", user.Id.ToString()),
                 new Claim(JwtRegisteredClaimNames.Jti, Guid.NewGuid().ToString())
             };
-            foreach (var role in user.UserRoles)
+            foreach (var role in user.Roles)
             {
                 claims.Add(new Claim(ClaimTypes.Role, role.Role.Name));
             }

@@ -4,6 +4,7 @@ namespace IamService.Models
     public class LoginReponse
     {
         public string UserName { get; set; }
+        public int UserId { get; set; }
         public string Token { get; set; }
     }
 }
