@@ -64,11 +64,22 @@ namespace IamService.DataAccess
                     FirstName = "Tudor",
                     LastName = "Hoinaru",
                     DateOfBirth = DateTime.Parse("10-04-1985"),
-                    UserId = 1
+                    UserId = 1,
+                    EmailAddress = "tudor.hoinaru@gmail.com"
                 });
             modelBuilder.Entity<UserActivityLog>().ToTable("UserActivityLogs")
                 .HasOne(ual => ual.User)
                 .WithMany();
+            modelBuilder.Entity<UserActivityLog>()
+                .HasData(
+                new UserActivityLog
+                {
+                    ActionType = Enums.UserActionType.CreateAccount.ToString(),
+                    EntryDate = DateTime.Now,
+                    Id = 1,
+                    UserId = 1
+                });
+
         }
     }
 }

@@ -8,7 +8,7 @@ using Microsoft.Extensions.DependencyInjection;
 
 namespace UnitTests
 {
-    public class DIFixture
+    public class DIFixture : IDisposable
     {
         public ServiceProvider ServiceProvider { get; set; }
         private static bool _dbInitialized;
@@ -39,11 +39,16 @@ namespace UnitTests
             {
                 var context = ServiceProvider.GetService<IamDbContext>();
 
-                context.Database.EnsureDeleted();
                 context.Database.EnsureCreated();
                 _dbInitialized = true;
 
             }
+        }
+
+        public void Dispose()
+        {
+            var context = ServiceProvider.GetService<IamDbContext>();
+            context.Database.EnsureDeleted();
         }
     }
 }

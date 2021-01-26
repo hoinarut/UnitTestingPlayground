@@ -25,6 +25,26 @@ namespace IamService.BusinessLogic.Services
 
         public async Task<User> CreateAsync(UserCreateModel model)
         {
+            if (await _dbContext.Users.AnyAsync(u => u.UserName == model.UserName))
+            {
+                throw new ValidationException(Constants.ServiceMessages.CREATE_USER_USERNAME_IN_USE);
+            }
+            if (await _dbContext.UserProfiles.AnyAsync(up => up.EmailAddress == model.Profile.EmailAddress))
+            {
+                throw new ValidationException(Constants.ServiceMessages.CREATE_USER_EMAIL_IN_USE);
+            }
+
+            if (model.Roles == null || !model.Roles.Any())
+            {
+                throw new ValidationException(Constants.ServiceMessages.CREATE_USER_NO_ROLE);
+            }
+
+            var validRoles = await _dbContext.Roles.Select(r => r.Id).ToListAsync();
+            if (model.Roles.Except(validRoles).Any())
+            {
+                throw new ValidationException(Constants.ServiceMessages.CREATE_USER_INVALID_ROLE);
+            }
+
             var userEntity = new User
             {
                 UserName = model.UserName,
@@ -41,6 +61,10 @@ namespace IamService.BusinessLogic.Services
 
         public async Task<List<string>> GetUserRolesAsync(int userId)
         {
+            if (!await _dbContext.Users.AnyAsync(u => u.Id == userId))
+            {
+                throw new ValidationException("Invalid UserId");
+            }
             var userRoles = await _dbContext.UserRoles
                 .Include(ur => ur.Role)
                 .Where(ur => ur.UserId == userId)
@@ -64,7 +88,7 @@ namespace IamService.BusinessLogic.Services
         public async Task<List<Role>> GetRolesAsync()
         {
             return await _dbContext.Roles.ToListAsync();
-        }        
+        }
     }
 }
 
