@@ -23,7 +23,6 @@
     <Folder Include="DataAccess\" />
     <Folder Include="BusinessLogic\" />
     <Folder Include="BusinessLogic\Services\" />
-    <Folder Include="Models\" />
     <Folder Include="BusinessLogic\Helpers\" />
     <Folder Include="DataAccess\DTOs\" />
   </ItemGroup>

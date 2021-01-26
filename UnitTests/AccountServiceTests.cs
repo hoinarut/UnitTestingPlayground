@@ -41,7 +41,7 @@ namespace UnitTests
             // Act
             var loginResult = await accountService.LoginAsync(loginModel);
             // Assert
-            Assert.IsType<LoginReponse>(loginResult);
+            Assert.IsType<LoginResponse>(loginResult);
             Assert.NotNull(loginResult.Token);
         }
 

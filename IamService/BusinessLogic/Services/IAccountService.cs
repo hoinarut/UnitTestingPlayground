@@ -9,7 +9,7 @@ namespace IamService.BusinessLogic.Services
 {
     public interface IAccountService
     {
-        public Task<LoginReponse> LoginAsync(LoginModel model);
+        public Task<LoginResponse> LoginAsync(LoginModel model);
         public Task<List<Role>> GetRolesAsync();
         public Task<List<string>> GetUserRolesAsync(int userId);
         public Task<User> CreateAsync(UserCreateModel model);        

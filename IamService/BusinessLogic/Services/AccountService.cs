@@ -72,7 +72,7 @@ namespace IamService.BusinessLogic.Services
             return userRoles;
         }
 
-        public async Task<LoginReponse> LoginAsync(LoginModel model)
+        public async Task<LoginResponse> LoginAsync(LoginModel model)
         {
             var user = await _dbContext.Users
                 .Include(u => u.Roles).ThenInclude(ur => ur.Role)
@@ -82,7 +82,7 @@ namespace IamService.BusinessLogic.Services
                 throw new ValidationException("Invalid username or password");
             }
             var token = _passwordHelper.GenerateJwtToken(user);
-            return new LoginReponse { UserName = user.UserName, Token = token, UserId = user.Id };
+            return new LoginResponse { UserName = user.UserName, Token = token, UserId = user.Id };
         }
 
         public async Task<List<Role>> GetRolesAsync()

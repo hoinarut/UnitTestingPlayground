@@ -38,7 +38,7 @@ namespace IamService.Controllers
         }
 
         [HttpPost("login")]
-        public async Task<ActionResult<LoginReponse>> Login(LoginModel model)
+        public async Task<ActionResult<LoginResponse>> Login(LoginModel model)
         {
             var loginResult = await _accountService.LoginAsync(model);
             await _userActivityLogService.AddUserActivity(loginResult.UserId, Enums.UserActionType.Login.ToString());
