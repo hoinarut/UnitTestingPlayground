@@ -12,6 +12,7 @@ namespace IamService.BusinessLogic.Services
         public Task<LoginResponse> LoginAsync(LoginModel model);
         public Task<List<Role>> GetRolesAsync();
         public Task<List<string>> GetUserRolesAsync(int userId);
-        public Task<User> CreateAsync(UserCreateModel model);        
+        public Task<UserDto> CreateAsync(UserCreateModel model);
+        public Task<UserDto> GetUserById(int userId);
     }
 }

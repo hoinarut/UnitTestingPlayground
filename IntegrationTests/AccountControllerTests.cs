@@ -63,24 +63,8 @@ namespace IntegrationTests
         public async Task Create_ValidInput_ShouldReturnUserAndCreatedStatus()
         {
             // Arrange
-            await AuthenticateAsync();
-            var userCreateModel = new UserCreateModel
-            {
-                UserName = TestConstants.TEST_USER_1,
-                Password = TestConstants.TEST_PASSWORD,
-                ConfirmPassword = TestConstants.TEST_PASSWORD,
-                Profile = new UserProfileDto
-                {
-                    DateOfBirth = DateTime.Now,
-                    EmailAddress = TestConstants.TEST_EMAIL,
-                    FirstName = TestConstants.TEST_USER_FIRST_NAME,
-                    LastName = TestConstants.TEST_USER_LAST_NAME
-                },
-                Roles = new List<int>
-                {
-                    (int)Enums.Role.Employee
-                }
-            };
+            await AuthenticateAsAdminAsync();
+            var userCreateModel = TestHelper.GetUserCreateModel();
             // Act
             var response = await ApiClient.PostAsJsonAsync(ApiRoutes.CreateAccount, userCreateModel);
             // Assert 
@@ -90,7 +74,151 @@ namespace IntegrationTests
             newUser.Id.Should().NotBe(0);
         }
 
+        [Fact]
+        public async Task Create_NotAdmin_ShouldReturnForbidden()
+        {
+            // Arrange
+            await AuthenticateAsEmployeeAsync();
+            var userCreateModel = TestHelper.GetUserCreateModel();
+            // Act
+            var response = await ApiClient.PostAsJsonAsync(ApiRoutes.CreateAccount, userCreateModel);
+            // Assert 
+            response.StatusCode.Should().Be(HttpStatusCode.Forbidden);
+        }
+
+        [Fact]
+        public async Task Create_NoToken_ShouldReturnUnauthorized()
+        {
+            // Arrange
+            var userCreateModel = TestHelper.GetUserCreateModel();
+            // Act
+            var response = await ApiClient.PostAsJsonAsync(ApiRoutes.CreateAccount, userCreateModel);
+            // Assert 
+            response.StatusCode.Should().Be(HttpStatusCode.Unauthorized);
+        }
+
+        [Fact]
+        public async Task Create_InvalidInput_ShouldReturnBadRequest()
+        {
+            // Arrange
+            await AuthenticateAsAdminAsync();
+            var userCreateModel = new UserCreateModel
+            {
+                UserName = "bad"
+            };
+            // Act
+            var response = await ApiClient.PostAsJsonAsync(ApiRoutes.CreateAccount, userCreateModel);
+            // Assert 
+            response.StatusCode.Should().Be(HttpStatusCode.BadRequest);
+        }
+
         #endregion
 
+        #region USER ROLES
+
+        [Fact]
+        public async Task GetUserRoles_ValidUserIdAndToken_ShouldReturnUserRolesList()
+        {
+            // Arrange
+            await AuthenticateAsAdminAsync();
+            // Act
+            var response = await ApiClient.GetAsync($"{ ApiRoutes.UserRoles}/{TestConstants.ADMIN_USER_ID}");
+            // Assert             
+            var roles = await response.Content.ReadAsAsync<List<string>>();
+            roles.Should().NotBeEmpty();
+        }
+
+        [Fact]
+        public async Task GetUserRoles_NotAdmin_ShouldReturnForbidden()
+        {
+            // Arrange
+            await AuthenticateAsEmployeeAsync();
+            // Act
+            var response = await ApiClient.GetAsync($"{ ApiRoutes.UserRoles}/{TestConstants.ADMIN_USER_ID}");
+            // Assert             
+            response.StatusCode.Should().Be(HttpStatusCode.Forbidden);
+        }
+
+        [Fact]
+        public async Task GetUserRoles_NoToken_ShouldReturnUnauthorized()
+        {
+            // Arrange
+            // Act
+            var response = await ApiClient.GetAsync($"{ ApiRoutes.UserRoles}/{TestConstants.ADMIN_USER_ID}");
+            // Assert             
+            response.StatusCode.Should().Be(HttpStatusCode.Unauthorized);
+        }
+
+        [Fact]
+        public async Task GetUserRoles_InvalidUserId_ShouldReturnBadRequest()
+        {
+            // Arrange
+            await AuthenticateAsAdminAsync();
+            // Act
+            var response = await ApiClient.GetAsync($"{ ApiRoutes.UserRoles}/{TestConstants.INVALID_USER_ID}");
+            // Assert             
+            response.StatusCode.Should().Be(HttpStatusCode.BadRequest);
+        }
+
+        #endregion
+
+        #region ROLES
+        [Fact]
+        public async Task GetRoles_ShouldReturnRolesList()
+        {
+            // Arrange
+            // Act
+            var response = await ApiClient.GetAsync(ApiRoutes.Roles);
+            // Assert             
+            var roles = await response.Content.ReadAsAsync<List<Role>>();
+            roles.Should().NotBeEmpty();
+        }
+        #endregion
+
+        #region USER ACTIVITY
+        [Fact]
+        public async Task GetUserActivity_ValidUserIdAndToken_ShouldReturnUserActivityLogDtoList()
+        {
+            // Arrange
+            await AuthenticateAsAdminAsync();
+            // Act
+            var response = await ApiClient.GetAsync($"{ ApiRoutes.UserActivity}/{TestConstants.ADMIN_USER_ID}");
+            // Assert             
+            var roles = await response.Content.ReadAsAsync<List<UserActivityLogDto>>();
+            roles.Should().NotBeEmpty();
+        }
+
+        [Fact]
+        public async Task GetUserActivity_NotAdmin_ShouldReturnForbidden()
+        {
+            // Arrange
+            await AuthenticateAsEmployeeAsync();
+            // Act
+            var response = await ApiClient.GetAsync($"{ ApiRoutes.UserActivity}/{TestConstants.ADMIN_USER_ID}");
+            // Assert             
+            response.StatusCode.Should().Be(HttpStatusCode.Forbidden);
+        }
+
+        [Fact]
+        public async Task GetUserActivity_NoToken_ShouldReturnUnauthorized()
+        {
+            // Arrange
+            // Act
+            var response = await ApiClient.GetAsync($"{ ApiRoutes.UserActivity}/{TestConstants.ADMIN_USER_ID}");
+            // Assert             
+            response.StatusCode.Should().Be(HttpStatusCode.Unauthorized);
+        }
+
+        [Fact]
+        public async Task GetUserActivity_InvalidUserId_ShouldReturnBadRequest()
+        {
+            // Arrange
+            await AuthenticateAsAdminAsync();
+            // Act
+            var response = await ApiClient.GetAsync($"{ ApiRoutes.UserActivity}/{TestConstants.INVALID_USER_ID}");
+            // Assert             
+            response.StatusCode.Should().Be(HttpStatusCode.BadRequest);
+        }
+        #endregion
     }
 }

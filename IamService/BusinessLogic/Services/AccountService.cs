@@ -23,7 +23,7 @@ namespace IamService.BusinessLogic.Services
             _passwordHelper = passwordHelper;
         }
 
-        public async Task<User> CreateAsync(UserCreateModel model)
+        public async Task<UserDto> CreateAsync(UserCreateModel model)
         {
             if (await _dbContext.Users.AnyAsync(u => u.UserName == model.UserName))
             {
@@ -56,7 +56,7 @@ namespace IamService.BusinessLogic.Services
 
             _dbContext.Users.Add(userEntity);
             await _dbContext.SaveChangesAsync();
-            return userEntity;
+            return userEntity.ToDto(false);
         }
 
         public async Task<List<string>> GetUserRolesAsync(int userId)
@@ -88,6 +88,19 @@ namespace IamService.BusinessLogic.Services
         public async Task<List<Role>> GetRolesAsync()
         {
             return await _dbContext.Roles.ToListAsync();
+        }
+
+        public async Task<UserDto> GetUserById(int userId)
+        {
+            var user = await _dbContext.Users
+                .Include(u => u.Roles).ThenInclude(r => r.Role)
+                .Include(u => u.Profile)
+                .FirstOrDefaultAsync(u => u.Id == userId);
+            if (user == null)
+            {
+                throw new ValidationException(Constants.ServiceMessages.GET_USER_INVALID_USER_ID);
+            }
+            return user.ToDto(true);
         }
     }
 }

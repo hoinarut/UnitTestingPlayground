@@ -115,7 +115,7 @@ namespace UnitTests
         }
 
         [Fact]
-        public async Task Create_ValidInput_ShouldReturnUserObject()
+        public async Task Create_ValidInput_ShouldReturnUserDtoObject()
         {
             // Arrange
             var accountService = GetAccountService();
@@ -136,7 +136,7 @@ namespace UnitTests
             // Act
             var newUser = await accountService.CreateAsync(userCreateModel);
             // Assert
-            Assert.IsType<User>(newUser);
+            Assert.IsType<UserDto>(newUser);
             Assert.NotEqual(0, newUser.Id);
         }
 

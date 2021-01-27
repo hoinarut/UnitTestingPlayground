@@ -40,6 +40,14 @@ namespace IamService.DataAccess
                         IsActive = true,
                         Password = pwd,
                         UserName = "hoinarut"
+                    },
+                    new User
+                    {
+                        Id = 2,
+                        CreatedOn = DateTime.Now,
+                        IsActive = true,
+                        Password = secHlp.HashPassword("abcdefgh"),
+                        UserName = "regular_user"
                     }
                 );
 
@@ -50,23 +58,40 @@ namespace IamService.DataAccess
                 .HasOne(ur => ur.User)
                 .WithMany(u => u.Roles);
             modelBuilder.Entity<UserRole>()
-                .HasData(new UserRole
-                {
-                    RoleId = 1,
-                    UserId = 1
-                });
+                .HasData(
+                    new UserRole
+                    {
+                        RoleId = (int)Enums.Role.Admin,
+                        UserId = 1
+                    },
+                    new UserRole
+                    {
+                        RoleId = (int)Enums.Role.Employee,
+                        UserId = 2
+                    }
+                );
 
             modelBuilder.Entity<UserProfile>().ToTable("UserProfiles")
                 .HasData(
-                new UserProfile
-                {
-                    Id = 1,
-                    FirstName = "Tudor",
-                    LastName = "Hoinaru",
-                    DateOfBirth = DateTime.Parse("10-04-1985"),
-                    UserId = 1,
-                    EmailAddress = "tudor.hoinaru@gmail.com"
-                });
+                    new UserProfile
+                    {
+                        Id = 1,
+                        FirstName = "Tudor",
+                        LastName = "Hoinaru",
+                        DateOfBirth = DateTime.Parse("10-04-1985"),
+                        UserId = 1,
+                        EmailAddress = "tudor.hoinaru@gmail.com"
+                    },
+                    new UserProfile
+                    {
+                        Id = 2,
+                        FirstName = "Regular",
+                        LastName = "User",
+                        DateOfBirth = DateTime.Parse("10-04-1985"),
+                        UserId = 2,
+                        EmailAddress = "regular.user@gmail.com"
+                    }
+                );
             modelBuilder.Entity<UserActivityLog>().ToTable("UserActivityLogs")
                 .HasOne(ual => ual.User)
                 .WithMany();

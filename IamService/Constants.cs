@@ -12,6 +12,7 @@ namespace IamService
             public const string CREATE_USER_INVALID_USER_OR_PASSWORD = "Invalid username or password";
             public const string ADD_USER_ACTIVITY_INVALID_USER = "The provided user id is invalid";
             public const string ADD_USER_ACTIVITY_INVALID_ACTION_TYPE = "The provided action type is invalid";
+            public const string GET_USER_INVALID_USER_ID = "The provided user id is invalid";
         }
     }
 }

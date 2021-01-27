@@ -24,7 +24,7 @@ namespace IamService.Controllers
 
         [HttpPost("create")]
         [Authorize(Policy = "Admin")]
-        public async Task<ActionResult<User>> Create(UserCreateModel model)
+        public async Task<ActionResult<UserDto>> Create(UserCreateModel model)
         {
             if (!ModelState.IsValid)
             {
@@ -34,7 +34,14 @@ namespace IamService.Controllers
 
             await _userActivityLogService.AddUserActivity(newUser.Id, Enums.UserActionType.CreateAccount.ToString());
 
-            return Ok(newUser);
+            return CreatedAtRoute(nameof(GetById), new { userId = newUser.Id }, newUser);
+        }
+
+        [HttpGet("{userId}", Name = nameof(GetById))]
+        public async Task<ActionResult<User>> GetById(int userId)
+        {
+            var user = await _accountService.GetUserById(userId);
+            return Ok(user);
         }
 
         [HttpPost("login")]

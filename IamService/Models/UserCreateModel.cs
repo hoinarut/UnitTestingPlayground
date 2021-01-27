@@ -18,6 +18,7 @@ namespace IamService.Models
         [Compare(nameof(Password))]
         public string ConfirmPassword { get; set; }
         public List<int> Roles { get; set; }
+        [Required]
         public UserProfileDto Profile { get; set; }
     }
 }
